@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "6. ZigZag Conversion", "6. 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "7. Reverse Integer", "7. Reverse Integer\7. Reverse Integer.csproj", "{9998E92A-41B0-40F3-883A-D30139464622}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "8. String to Integer (atoi)", "8. String to Integer (atoi)\8. String to Integer (atoi).csproj", "{1BDAA233-C489-4A82-9BBE-92E38F235A20}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{9998E92A-41B0-40F3-883A-D30139464622}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9998E92A-41B0-40F3-883A-D30139464622}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9998E92A-41B0-40F3-883A-D30139464622}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BDAA233-C489-4A82-9BBE-92E38F235A20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BDAA233-C489-4A82-9BBE-92E38F235A20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BDAA233-C489-4A82-9BBE-92E38F235A20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BDAA233-C489-4A82-9BBE-92E38F235A20}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
