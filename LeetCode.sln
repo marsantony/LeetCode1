@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "7. Reverse Integer", "7. Re
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "8. String to Integer (atoi)", "8. String to Integer (atoi)\8. String to Integer (atoi).csproj", "{1BDAA233-C489-4A82-9BBE-92E38F235A20}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "9. Palindrome Number", "9. Palindrome Number\9. Palindrome Number.csproj", "{CAF7EEB9-50C8-4D7F-B016-9DB28FDADCCF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{1BDAA233-C489-4A82-9BBE-92E38F235A20}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BDAA233-C489-4A82-9BBE-92E38F235A20}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1BDAA233-C489-4A82-9BBE-92E38F235A20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAF7EEB9-50C8-4D7F-B016-9DB28FDADCCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAF7EEB9-50C8-4D7F-B016-9DB28FDADCCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAF7EEB9-50C8-4D7F-B016-9DB28FDADCCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAF7EEB9-50C8-4D7F-B016-9DB28FDADCCF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
