@@ -20,29 +20,16 @@ namespace _1.Two_Sum
     {
         public int[] TwoSum(int[] nums, int target)
         {
-            int[] Result = new int[2];
-            Dictionary<int, List<int>> NumbersIndexMap = new Dictionary<int, List<int>>();
-            for (int NumIndex = 0; NumIndex < nums.Length; NumIndex++)
+            Dictionary<int, int> numbersIndexMap = new Dictionary<int, int>();
+            for (int index = 0; index < nums.Length; index++)
             {
-                if (NumbersIndexMap.ContainsKey(nums[NumIndex]))
-                    NumbersIndexMap[nums[NumIndex]].Add(NumIndex);
-                else
-                    NumbersIndexMap.Add(nums[NumIndex], new List<int>() { NumIndex });
+                int otherTarget = target - nums[index];
+                if (numbersIndexMap.ContainsKey(otherTarget))
+                    return new int[] { numbersIndexMap[otherTarget], index };
+
+                numbersIndexMap.Add(nums[index], index);
             }
-
-            foreach (int Num in NumbersIndexMap.Keys)
-            {
-                int OtherTarget = target - Num;
-
-                if (NumbersIndexMap.ContainsKey(OtherTarget) && NumbersIndexMap[OtherTarget].Last() != NumbersIndexMap[Num].First())
-                {
-                    Result[0] = NumbersIndexMap[Num].First();
-                    Result[1] = NumbersIndexMap[OtherTarget].Last();
-                    break;
-                }
-            }
-
-            return Result;
+            throw new ArgumentOutOfRangeException("No two sum solution");
         }
     }
 }
