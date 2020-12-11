@@ -19,23 +19,28 @@ namespace _3.Longest_Substring_Without_Repeating_Characters
     {
         public int LengthOfLongestSubstring(string s)
         {
-            int n = s.Length, ans = 0;
-            Dictionary<char, List<int>> map = new Dictionary<char, List<int>>();
-            for (int j = 0, i = 0; j < n; j++)
+            int indexL = 0;
+            int result = 0;
+            char currCh = char.MinValue;
+            //字元的索引值，只存最接近當前索引(indexR)的
+            Dictionary<char, int> charIndexMap = new Dictionary<char, int>();
+            for (int indexR = 0; indexR < s.Length; indexR++)
             {
-                if (map.ContainsKey(s[j]))
-                {
-                    i = Math.Max(map[s[j]].Last(), i);
-                }
-                else
-                {
-                    map.Add(s[j], new List<int>());
-                }
-                ans = Math.Max(ans, j - i + 1);
+                currCh = s[indexR];
+                indexL = charIndexMap.ContainsKey(currCh)
+                            //最近的重複字元往前一位或當前左索引(indexL)位置，比較靠近當前索引為準
+                            ? Math.Max(charIndexMap[currCh] + 1, indexL)    
+                            : indexL;
+                //當前索引 - 左索引 + 1 => 長度
+                result = Math.Max(result, indexR - indexL + 1);
 
-                map[s[j]].Add(j + 1);
+                if (charIndexMap.ContainsKey(currCh))
+                    charIndexMap[currCh] = indexR;
+                else
+                    charIndexMap.Add(currCh, indexR);
             }
-            return ans;
+
+            return result;
         }
     }
 }
