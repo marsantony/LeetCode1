@@ -10,7 +10,7 @@ namespace _4.Median_of_Two_Sorted_Arrays
     {
         static void Main(string[] args)
         {
-            double res = new Solution().FindMedianSortedArrays(new int[] { 1 }, new int[] { 1 });
+            double res = new BestSolution().FindMedianSortedArrays(new int[] { 1,3 }, new int[] { 2 });
             Console.ReadLine();
         }
 
@@ -19,56 +19,136 @@ namespace _4.Median_of_Two_Sorted_Arrays
     {
         public double FindMedianSortedArrays(int[] nums1, int[] nums2)
         {
-            bool LongerArrayNums2 = nums1.Length <= nums2.Length;
-            int[] A = nums1, B = nums2;
-            int m = nums1.Length, n = nums2.Length;
-            if (!LongerArrayNums2)
+            double medianIndex = (double)(nums1.Length + nums2.Length - 1) / 2;
+            List<double> medians = new List<double>(2);
+            int[] medianIndexs = new int[2] { (int)Math.Floor(medianIndex), (int)Math.Ceiling(medianIndex) };
+            int num1Index = 0, num2Index = 0, currNum = 0;
+            for(int index = 0; index <= medianIndexs[1]; index++)
             {
-                A = nums2;
-                B = nums1;
-                m = nums2.Length;
-                n = nums1.Length;
+                if (num1Index == nums1.Length || (num2Index != nums2.Length && nums1[num1Index] > nums2[num2Index]))
+                {
+                    currNum = nums2[num2Index];
+                    num2Index += 1;
+                }
+                else
+                {
+                    currNum = nums1[num1Index];
+                    num1Index += 1;
+                }
+
+                if (medianIndexs.Contains(index))
+                {
+                    medians.Add(currNum);
+                }
             }
+
+            return medians.Count == 1 ? medians[0] : (medians[0] + medians[1]) / 2;
+
+            //bool LongerArrayNums2 = nums1.Length <= nums2.Length;
+            //int[] A = nums1, B = nums2;
+            //int m = nums1.Length, n = nums2.Length;
+            //if (!LongerArrayNums2)
+            //{
+            //    A = nums2;
+            //    B = nums1;
+            //    m = nums2.Length;
+            //    n = nums1.Length;
+            //}
+
+            //if (n == 0)
+            //    throw new Exception("Two Empty Array");
+
+            //int iMin = 0, iMax = m, HalfLen = (m + n + 1) / 2,
+            //    i = (iMin + iMax) / 2, j = HalfLen - i;
+            //double MaxOfLeft = 0, MinOfRight = 0;
+
+            //while (iMin <= iMax)
+            //{
+            //    i = (iMin + iMax) / 2;
+            //    j = HalfLen - i;
+
+            //    if (i < m && B[j - 1] > A[i])
+            //    {
+            //        iMin = i + 1;
+            //    }
+            //    else if (i > 0 && A[i - 1] > B[j])
+            //    {
+            //        iMax = i - 1;
+            //    }else
+            //    {
+            //        if (i == 0)
+            //            MaxOfLeft = B[j - 1];
+            //        else if (j == 0)
+            //            MaxOfLeft = A[i - 1];
+            //        else
+            //            MaxOfLeft = Math.Max(A[i - 1], B[j - 1]);
+
+            //        if ((m + n) % 2 == 1)
+            //            return MaxOfLeft;
+
+            //        if (i == m)
+            //            MinOfRight = B[j];
+            //        else if (j == n)
+            //            MinOfRight = A[i];
+            //        else
+            //            MinOfRight = Math.Min(A[i], B[j]);
+
+            //        return (MaxOfLeft + MinOfRight) / 2;
+            //    }
+            //}
+
+            //throw new Exception("Unexpected Error");
+        }
+    }
+
+    public class BestSolution
+    {
+        public double FindMedianSortedArrays(int[] nums1, int[] nums2)
+        {
+            bool longerNums1 = nums1.Length >= nums2.Length;    //need n >= m
+            int[] A, B;
+            A = longerNums1 ? nums2 : nums1;
+            B = longerNums1 ? nums1 : nums2;
+            int m = A.Length, n = B.Length;
 
             if (n == 0)
                 throw new Exception("Two Empty Array");
 
-            int iMin = 0, iMax = m, HalfLen = (m + n + 1) / 2,
-                i = (iMin + iMax) / 2, j = HalfLen - i;
-            double MaxOfLeft = 0, MinOfRight = 0;
+            int iMin = 0, iMax = m, halfLen = (m + n + 1) / 2, i, j
+                , maxOfLeft = 0, minOfRight = 0;
 
             while (iMin <= iMax)
             {
                 i = (iMin + iMax) / 2;
-                j = HalfLen - i;
-
+                j = halfLen - i;
                 if (i < m && B[j - 1] > A[i])
                 {
                     iMin = i + 1;
                 }
-                else if (i > 0 && A[i - 1] > B[j])
+                else if(i > 0 && A[i-1] > B[j])
                 {
                     iMax = i - 1;
-                }else
+                }
+                else
                 {
                     if (i == 0)
-                        MaxOfLeft = B[j - 1];
+                        maxOfLeft = B[j - 1];
                     else if (j == 0)
-                        MaxOfLeft = A[i - 1];
+                        maxOfLeft = A[i - 1];
                     else
-                        MaxOfLeft = Math.Max(A[i - 1], B[j - 1]);
+                        maxOfLeft = Math.Max(B[j - 1], A[i - 1]);
 
                     if ((m + n) % 2 == 1)
-                        return MaxOfLeft;
+                        return maxOfLeft;
 
                     if (i == m)
-                        MinOfRight = B[j];
+                        minOfRight = B[j];
                     else if (j == n)
-                        MinOfRight = A[i];
+                        minOfRight = A[i];
                     else
-                        MinOfRight = Math.Min(A[i], B[j]);
+                        minOfRight = Math.Min(B[j], A[i]);
 
-                    return (MaxOfLeft + MinOfRight) / 2;
+                    return (maxOfLeft + minOfRight) / 2.0;
                 }
             }
 
