@@ -10,13 +10,94 @@ namespace _5.Longest_Palindromic_Substring
     {
         static void Main(string[] args)
         {
-            string res = new Solution().LongestPalindrome("a");
+            string res = new ManachersSolution().LongestPalindrome("babad");
             Console.ReadLine();
         }
     }
 
+    //Expand Around CenterO(n^2) 
+    public class ExpandAroundCenterSolution
+    {
+        public string LongestPalindrome(string s)
+        {
+            if (string.IsNullOrEmpty(s)) return string.Empty;
+            int start = 0, maxLen = 0;
+            for(int i = 0; i < s.Length; i++)
+            {
+                int lps1 = ExpandAroundCenter(s, i, i);
+                int lps2 = ExpandAroundCenter(s, i, i + 1);
+                int len = Math.Max(lps1, lps2);
+                if(len > maxLen)
+                {
+                    maxLen = len;
+                    start = i - (len - 1) / 2;
+                }
+            }
+            return s.Substring(start,maxLen);
+        }
+
+        private int ExpandAroundCenter(string s, int left, int right)
+        {
+            while (left >= 0 && right < s.Length && s[left] == s[right])
+            {
+                left--;
+                right++;
+            }
+
+            return right - left - 1;
+        }
+    }
+
     //manachers-algorithm O(n)
-    public class Solution
+    public class ManachersSolution
+    {
+        public string LongestPalindrome(string s)
+        {
+            if (string.IsNullOrEmpty(s)) return string.Empty;
+            int N = s.Length * 2 + 1;
+            int[] P = new int[N];
+            P[0] = 0;
+            P[1] = 1;
+            int C = 1, R = 2, i = 0, iMirror = 0;
+            int diff = 0, maxLPSLength = 1, maxLPSCenterPosition = 0;
+            int start = 0;
+            for(i = 2; i < N; i++)
+            {
+                iMirror = C * 2 - i;
+                P[i] = 0;
+                diff = R - i;
+                if (diff > 0)
+                    P[i] = Math.Min(P[iMirror], diff);
+
+                while (
+                    (i + P[i] + 1 < N)  && (i - P[i] > 0) &&
+                    (
+                        ((i + P[i] + 1) % 2 == 0) ||
+                        (s[(i + P[i] + 1) / 2] == s[(i - P[i] - 1) / 2])
+                    ))
+                {
+                    P[i]++;
+                }
+
+                if(P[i] > maxLPSLength)
+                {
+                    maxLPSLength = P[i];
+                    maxLPSCenterPosition = i;
+                }
+
+                if(i + P[i] > R)
+                {
+                    C = i;
+                    R = i + P[i];
+                }
+            }
+            start = (maxLPSCenterPosition - maxLPSLength) / 2;
+            return s.Substring(start, maxLPSLength);
+        }
+    }
+
+    //manachers-algorithm O(n)
+    public class OldManachersSolution
     {
         public string LongestPalindrome(string s)
         {
@@ -55,8 +136,8 @@ namespace _5.Longest_Palindromic_Substring
                 //If even position, we just increment LPS by ONE without 
                 //any character comparison
                 while (((i + L[i]) < N - 1 && (i - L[i]) > 0) &&
-                    (((i + L[i] + 1) % 2 == 0) ||
-                    (s[(i + L[i] + 1) / 2] == s[(i - L[i] - 1) / 2])))
+                       (((i + L[i] + 1) % 2 == 0) ||
+                        (s[(i + L[i] + 1) / 2] == s[(i - L[i] - 1) / 2])))
                 {
                     L[i]++;
                 }
